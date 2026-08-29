@@ -5,16 +5,19 @@ name: Publicar en Instagram
 # si estuviera repartida entre el cron y el YAML podrian discrepar y publicar
 # un dia que no toca.
 #
-# El cron arranca a las 20:30 UTC pero NO publica hasta las 21:00 UTC clavadas,
-# que son las 17:00 en Venezuela (UTC-4).
+# La hora de referencia es las 17:00 de Miami (America/New_York).
 #
-# El arranque temprano es a proposito: GitHub no garantiza la hora del cron y en
-# horas pico puede retrasarse entre 5 y 15 minutos. Arrancando media hora antes
-# y esperando dentro del job, el retraso se absorbe y el post sale a las 17:00
-# en vez de "a las 17:00 mas lo que GitHub tarde".
+# El cron de GitHub solo entiende UTC y no sabe de horario de verano, asi que
+# fijar una hora UTC seria correcto medio ano y estaria una hora corrido el
+# otro. Por eso el cron solo ARRANCA temprano (20:15 UTC, que cae antes de las
+# 17:00 de Miami tanto en EDT como en EST) y la hora real se calcula dentro del
+# job con TZ=America/New_York, que si sigue el cambio de horario.
+#
+# Arrancar antes tambien absorbe el retraso del propio cron: GitHub no garantiza
+# la hora y en horas pico puede tardar entre 5 y 15 minutos.
 on:
   schedule:
-    - cron: "30 20 * * *"
+    - cron: "15 20 * * *"
   workflow_dispatch:
     inputs:
       fecha:
@@ -59,9 +62,14 @@ jobs:
         id: dia
         run: |
           F="${{ github.event.inputs.fecha }}"
-          [ -z "$F" ] && F=$(TZ=America/Caracas date +%F)
+          [ -z "$F" ] && F=$(TZ=America/New_York date +%F)
           echo "fecha=$F" >> "$GITHUB_OUTPUT"
           echo "fecha: $F"
+          # Se imprime la hora de Miami en cada corrida: es la comprobacion de
+          # que el runner resuelve la zona (con tzdata ausente saldria GMT y la
+          # espera apuntaria a la hora equivocada media parte del ano).
+          echo "Miami ahora: $(TZ=America/New_York date '+%F %H:%M %Z')"
+          echo "objetivo   : $(TZ=America/New_York date -d 'today 17:00' '+%F %H:%M %Z')"
 
       # Si hoy no toca, el resto de pasos se salta y el job termina en verde.
       # Un dia sin post es lo normal: la cola es un dia si, un dia no.
@@ -118,14 +126,20 @@ jobs:
       # Se espera con el render ya hecho: si algo falla, falla antes de la hora
       # y queda margen. Solo en las corridas por cron; un disparo manual publica
       # al momento.
-      - name: Esperar a las 17:00 de Venezuela
+      - name: Esperar a las 17:00 de Miami
         if: steps.toca.outputs.toca == 'si' && github.event_name == 'schedule'
         run: |
-          objetivo=$(date -u -d "today 21:00" +%s)
-          ahora=$(date -u +%s)
+          # Se calcula con la zona, no con un offset fijo: en EDT las 17:00 de
+          # Miami son las 21:00 UTC y en EST las 22:00, y `date` con TZ resuelve
+          # cual toca hoy sin que haya que tocar nada en noviembre ni en marzo.
+          objetivo=$(TZ=America/New_York date -d "today 17:00" +%s)
+          ahora=$(date +%s)
           faltan=$(( objetivo - ahora ))
-          if [ "$faltan" -gt 0 ] && [ "$faltan" -le 3600 ]; then
-            echo "esperando $faltan s hasta las 21:00 UTC (17:00 Venezuela)"
+          echo "ahora en Miami: $(TZ=America/New_York date '+%F %H:%M %Z')"
+          # El tope de 4 h cubre EST (la espera mas larga) y a la vez evita que
+          # un disparo a deshora deje el runner colgado media jornada.
+          if [ "$faltan" -gt 0 ] && [ "$faltan" -le 14400 ]; then
+            echo "esperando $faltan s hasta las 17:00 de Miami"
             sleep "$faltan"
           else
             echo "fuera de ventana (faltan ${faltan}s); se publica ya"
