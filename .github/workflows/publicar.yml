@@ -1,0 +1,136 @@
+name: Publicar en Instagram
+
+# El cron corre TODOS los dias, pero solo se publica si la fecha de hoy esta
+# en posts.yaml. La cadencia (un dia si, un dia no) vive en la cola, no aqui:
+# si estuviera repartida entre el cron y el YAML podrian discrepar y publicar
+# un dia que no toca.
+#
+# 21:00 UTC = 17:00 en Venezuela (UTC-4), la hora a la que ya publica la
+# cuenta. GitHub no garantiza la hora exacta: en horas pico el cron puede
+# arrancar entre 5 y 15 minutos tarde. Para un post diario da igual.
+on:
+  schedule:
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Fecha a publicar (AAAA-MM-DD). Vacio = hoy."
+        required: false
+      dry_run:
+        description: "Crear el contenedor pero NO publicar"
+        type: boolean
+        default: false
+
+concurrency:
+  # Dos corridas a la vez podrian publicar el mismo post dos veces.
+  group: publicar-instagram
+  cancel-in-progress: false
+
+permissions:
+  contents: write     # para commitear el JPEG en img/
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet pillow requests pyyaml
+
+      # Los runners de Ubuntu ya traen Chrome, pero no con un nombre fijo.
+      # Se resuelve aqui y se pasa por CHROME_BIN, que es lo que busca
+      # render_post.py antes de caer a la ruta de Windows.
+      - name: Localizar Chrome
+        run: |
+          BIN=$(command -v google-chrome || command -v chromium-browser || command -v chromium)
+          if [ -z "$BIN" ]; then echo "no hay Chrome en el runner"; exit 1; fi
+          echo "CHROME_BIN=$BIN" >> "$GITHUB_ENV"
+          "$BIN" --version
+
+      - name: Decidir la fecha
+        id: dia
+        run: |
+          F="${{ github.event.inputs.fecha }}"
+          [ -z "$F" ] && F=$(TZ=America/Caracas date +%F)
+          echo "fecha=$F" >> "$GITHUB_OUTPUT"
+          echo "fecha: $F"
+
+      # Si hoy no toca, el resto de pasos se salta y el job termina en verde.
+      # Un dia sin post es lo normal: la cola es un dia si, un dia no.
+      - name: Hoy toca?
+        id: toca
+        run: |
+          set +e
+          python finca_toca.py --fecha "${{ steps.dia.outputs.fecha }}"
+          codigo=$?
+          set -e
+          # 0 = toca | 1 = hoy no toca | 2 = la cola esta rota
+          # El 2 tiene que reventar el job: si se tratara como "no toca", un
+          # posts.yaml corrupto dejaria la cuenta muda en verde y nadie lo veria.
+          case "$codigo" in
+            0) echo "toca=si" >> "$GITHUB_OUTPUT" ;;
+            1) echo "toca=no" >> "$GITHUB_OUTPUT"
+               echo "hoy no hay fila en posts.yaml; no se publica nada" ;;
+            *) echo "finca_toca.py fallo con codigo $codigo"; exit 1 ;;
+          esac
+
+      - name: Renderizar
+        if: steps.toca.outputs.toca == 'si'
+        run: python render_post.py --fecha "${{ steps.dia.outputs.fecha }}"
+
+      # El JPEG se sirve desde este mismo repo por GitHub Pages: Instagram
+      # descarga por URL, no se le suben bytes.
+      - name: Publicar el JPEG en Pages
+        if: steps.toca.outputs.toca == 'si'
+        run: |
+          F="${{ steps.dia.outputs.fecha }}"
+          mkdir -p img
+          cp "salidas/$F/$F.jpg" "img/$F.jpg"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "img/$F.jpg"
+          git commit -m "Imagen del $F" || echo "sin cambios"
+          git push
+
+      # Pages tarda en servir lo recien empujado. publicar_finca.py ya
+      # comprueba la URL con HEAD antes de llamar a Instagram, pero si aun no
+      # esta viva aborta: este bucle espera a que responda 200.
+      - name: Esperar a que Pages sirva la imagen
+        if: steps.toca.outputs.toca == 'si'
+        run: |
+          URL="${{ vars.FINCA_PAGES_BASE_URL }}/img/${{ steps.dia.outputs.fecha }}.jpg"
+          for i in $(seq 1 40); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$URL" || true)
+            echo "intento $i: $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 15
+          done
+          echo "Pages no sirvio $URL tras 10 minutos"; exit 1
+
+      - name: Publicar en Instagram
+        if: steps.toca.outputs.toca == 'si'
+        env:
+          FB_PAGE_TOKEN:        ${{ secrets.FB_PAGE_TOKEN }}
+          IG_USER_ID:           ${{ secrets.IG_USER_ID }}
+          FINCA_PAGES_BASE_URL: ${{ vars.FINCA_PAGES_BASE_URL }}
+        run: |
+          EXTRA=""
+          [ "${{ github.event.inputs.dry_run }}" = "true" ] && EXTRA="--dry-run"
+          python publicar_finca.py --fecha "${{ steps.dia.outputs.fecha }}" $EXTRA
+
+      # Sin avisos, el log de la corrida es el unico rastro. Se guarda para
+      # poder mirar que paso un dia que la cuenta se quede muda.
+      - name: Guardar el registro
+        if: always() && steps.toca.outputs.toca == 'si'
+        uses: actions/upload-artifact@v4
+        with:
+          name: registro-${{ steps.dia.outputs.fecha }}
+          path: |
+            salidas/estado.log
+            salidas/${{ steps.dia.outputs.fecha }}/
+          if-no-files-found: ignore
+          retention-days: 30

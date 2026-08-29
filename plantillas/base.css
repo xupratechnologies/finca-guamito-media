@@ -1,0 +1,97 @@
+/* Tokens de marca de @fincaelguamito.
+   Fijados el 2026-08-14 comparando renders contra el feed real leido por la
+   Graph API. No son parametros por post: si cada pieza los mueve, el feed
+   deja de leerse como una sola cuenta. */
+
+:root {
+  --lienzo-ancho: 1080px;
+  --lienzo-alto: 1350px;   /* 4:5, el vertical maximo que admite el feed */
+
+  --crema: #F2EDE4;
+  --margen: 62px;
+
+  /* 175px es el ancho REAL del logo en pantalla. Vale desde que el recorte
+     es al trazo y no al glow: antes 248px rendian 134px visibles. */
+  --logo-ancho: 175px;
+  --logo-arriba: 52px;
+
+  --titular-tam: 124px;
+  --titular-abajo: 92px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: var(--lienzo-ancho);
+  height: var(--lienzo-alto);
+  overflow: hidden;
+  background: #000;
+}
+
+.lienzo {
+  position: relative;
+  width: var(--lienzo-ancho);
+  height: var(--lienzo-alto);
+  overflow: hidden;
+}
+
+/* `cover` mas `background-position` hacen el recorte. La foto es 4000x3000
+   horizontal y el destino vertical, asi que se descarta mas de la mitad del
+   ancho: de donde se recorte decide si la foto funciona o queda decapitada.
+   Eso lo controla el campo `foco` de posts.yaml. */
+.foto {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* El titular es crema y tiene que leerse sobre cualquier foto, incluido un
+   cielo blanco. Sin este velo desaparece. */
+.velo-abajo {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 52%;
+  background: linear-gradient(to top,
+    rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 38%, rgba(0,0,0,0) 100%);
+}
+
+/* Velo de esquina para el logo. En el post del 2026-08-06 el logo casi
+   desaparecia contra la roca clara; esto lo evita sin ensuciar la foto. */
+.velo-logo {
+  position: absolute;
+  top: 0; left: 0;
+  width: 56%; height: 28%;
+  background: radial-gradient(ellipse at top left,
+    rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 72%);
+}
+
+.logo {
+  position: absolute;
+  top: var(--logo-arriba);
+  left: var(--margen);
+  width: var(--logo-ancho);
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,.45));
+}
+
+/* Banda segura inferior: el titular vive aqui y no se mueve. Cuando se anada
+   la plantilla `split`, esto es lo que lo mantendra lejos de la costura entre
+   las dos fotos, que es el defecto del post del 2026-08-06. */
+.titulo {
+  position: absolute;
+  left: var(--margen);
+  right: var(--margen);
+  bottom: var(--titular-abajo);
+  font-family: 'Arial Black', 'Franklin Gothic Heavy', sans-serif;
+  font-size: var(--titular-tam);
+  line-height: .94;
+  letter-spacing: -.5px;
+  color: var(--crema);
+  text-transform: uppercase;
+  text-shadow: 0 4px 26px rgba(0,0,0,.6), 0 1px 3px rgba(0,0,0,.5);
+  /* El corte de linea lo decide posts.yaml, nunca el ancho de la caja. Sin
+     esto, un titular largo se parte solo donde el navegador quiera: "BELLEZA
+     QUE / NACE SOLA" salio en tres lineas el 2026-08-23. `pre` respeta solo
+     los <br> que pone render_post.py; el ajuste de tamano lo hace ajustar.js */
+  white-space: pre;
+}

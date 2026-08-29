@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- Plantilla `full`: una foto a sangre, logo arriba a la izquierda, titular
+     abajo. Es el 90% de lo que publica la cuenta.
+
+     Los marcadores {{...}} los sustituye render_post.py. Se usa este formato y
+     no el .format() de Python porque el CSS esta lleno de llaves y habria que
+     duplicarlas todas, que es exactamente como se cuelan los errores. -->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <style>{{CSS}}</style>
+  <style>
+    .foto {
+      background-image: url('{{FOTO}}');
+      background-position: {{FOCO}};
+    }
+  </style>
+</head>
+<body>
+  <div class="lienzo">
+    <div class="foto"></div>
+    <div class="velo-abajo"></div>
+    <div class="velo-logo"></div>
+    <img class="logo" src="{{LOGO}}" alt="">
+    <div class="titulo">{{TITULO}}</div>
+  </div>
+  <script>
+    // Con white-space:pre el titular ya no se parte solo, pero un titular
+    // ancho se saldria de la caja. Aqui se encoge hasta que la linea mas
+    // larga entra, en vez de recortarla o dejar que desborde.
+    //
+    // Baja de 2 en 2 desde el tamano de marca. El suelo de 72px es
+    // deliberado: por debajo el titular deja de tener el peso que tiene en
+    // el feed, y es preferible que un titular demasiado largo se note en el
+    // render a que salga diminuto sin que nadie lo mire.
+    (function () {
+      var t = document.querySelector('.titulo');
+      if (!t) return;
+      var px = parseFloat(getComputedStyle(t).fontSize);
+      while (t.scrollWidth > t.clientWidth && px > 72) {
+        px -= 2;
+        t.style.fontSize = px + 'px';
+      }
+      document.title = 'tam=' + px;
+    })();
+  </script>
+</body>
+</html>

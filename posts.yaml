@@ -1,0 +1,220 @@
+# Cola de publicaciones de @fincaelguamito.
+#
+# Una fecha esta aqui o no esta: eso ES la cadencia. No hay una regla aparte
+# que calcule "cada 2 dias", porque podria discrepar de esta lista y publicar
+# un dia que no toca o callarse uno que si.
+#
+# Arrancamos cada 2 dias, que es el ritmo real de la cuenta. Se pasa a diario
+# cuando el pipeline lleve dos semanas sin fallos.
+#
+# CAMPOS
+#   fecha      AAAA-MM-DD. El dia que sale.
+#   foto       ruta relativa a la raiz del proyecto.
+#   foco       de donde recorta: centro | arriba | abajo | izquierda | derecha
+#              Las fotos son horizontales y el post vertical, asi que se
+#              descarta mas de la mitad del ancho. Esto decide cual mitad.
+#   titulo     va SOBRE la imagen. El salto de linea lo eliges tu: en los posts
+#              reales el corte esta pensado (TOMATE UN / RESPIRO).
+#   caption    el texto del post. Formula de la cuenta:
+#              "Hay [lugares/experiencias] que... 🌿✨" + salto + "En Finca el
+#              Guamito, ..."
+#   hashtags   sin la almohadilla, se anade sola.
+#
+# Como NO hay revision humana antes de publicar, lo que se encola tiene que
+# estar bien encolado: el control de calidad esta aqui, no al final.
+
+
+- fecha: 2026-08-26
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1558.JPG
+  foco: centro
+  titulo: |
+    AGUA Y
+    MONTAÑA
+  caption: |
+    Hay vistas que se disfrutan mejor con los pies en el agua. 💦🌿
+
+    En Finca el Guamito, la piscina mira directo a la montaña: nadar
+    aquí es también quedarse viendo el paisaje.
+  hashtags: [agroecoturismo, anzoategui, piscinanatural, venezuela, descanso]
+
+- fecha: 2026-08-28
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_2036.JPG
+  foco: centro
+  titulo: |
+    LA VIDA
+    DEL CAMPO
+  caption: |
+    Hay escenas sencillas que enseñan más que cualquier explicación. 🐄🌿
+
+    En Finca el Guamito, ver de cerca cómo comen y crecen los animales
+    es parte de lo que se lleva la gente cuando se va.
+  hashtags: [agroecoturismo, anzoategui, turismorural, venezuela, campo]
+
+- fecha: 2026-08-30
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_2082.JPG
+  foco: centro
+  titulo: |
+    AMARILLO
+    DE VENEZUELA
+  caption: |
+    Hay árboles que anuncian la época sin decir una palabra. 💛🌿
+
+    En Finca el Guamito, el araguaney florece y pinta el campo entero
+    de ese amarillo que solo se ve aquí.
+  hashtags: [araguaney, agroecoturismo, anzoategui, venezuela, naturaleza]
+
+- fecha: 2026-09-01
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1530.JPG
+  foco: centro
+  titulo: |
+    AL PASO
+    DEL CABALLO
+  caption: |
+    Hay caminos que se entienden distinto desde la silla. 🐎🌿
+
+    En Finca el Guamito, la cabalgata entra al bosque despacio, entre
+    sombra y sonido de hojas, sin apuro por llegar.
+  hashtags: [cabalgata, agroecoturismo, anzoategui, turismorural, venezuela]
+
+- fecha: 2026-09-03
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_2060.JPG
+  foco: centro
+  titulo: |
+    UNA SILLA
+    Y NADA MÁS
+  caption: |
+    Hay planes que no necesitan más que un lugar donde sentarse. 🌿✨
+
+    En Finca el Guamito, el corredor con sus mecedoras es de los
+    rincones donde la gente se queda más tiempo del que pensaba.
+  hashtags: [agroecoturismo, anzoategui, descanso, venezuela, posada]
+
+- fecha: 2026-09-05
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1841.JPG
+  foco: centro
+  titulo: |
+    EMPIEZA
+    EL DÍA AQUÍ
+  caption: |
+    Hay amaneceres que valen por sí solos el viaje. 🌅🌿
+
+    En Finca el Guamito, el sol sale por detrás de la montaña y por
+    unos minutos no hace falta hacer nada más que mirar.
+  hashtags: [amanecer, agroecoturismo, anzoategui, venezuela, naturaleza]
+
+- fecha: 2026-09-07
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1667.JPG
+  foco: centro
+  titulo: |
+    EL SONIDO
+    DEL AGUA
+  caption: |
+    Hay sonidos que bajan las revoluciones sin que te des cuenta. 💦🌿
+
+    En Finca el Guamito, el agua cayendo entre las piedras es el
+    ruido de fondo de todo el lugar.
+  hashtags: [agroecoturismo, anzoategui, turismorural, venezuela, calma]
+
+- fecha: 2026-09-09
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1804.JPG
+  foco: centro
+  titulo: |
+    AQUÍ PASTAN
+    TRANQUILOS
+  caption: |
+    Hay ganado que se cría suelto, sin prisa y a su ritmo. 🐄🌿
+
+    En Finca el Guamito, los animales andan libres entre el pasto y
+    las flores, y esa calma se contagia.
+  hashtags: [ganaderia, agroecoturismo, anzoategui, venezuela, campo]
+
+- fecha: 2026-09-11
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1588.JPG
+  foco: centro
+  titulo: |
+    SOMBRA
+    PARA TODOS
+  caption: |
+    Hay lugares hechos para sentarse a conversar sin mirar el reloj. 🌿✨
+
+    En Finca el Guamito, la churuata es donde termina cayendo todo el
+    mundo: a comer, a descansar o simplemente a hablar.
+  hashtags: [agroecoturismo, anzoategui, turismorural, venezuela, familia]
+
+- fecha: 2026-09-13
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1684.JPG
+  foco: centro
+  titulo: |
+    QUIEN CANTA
+    EN EL CAMPO
+  caption: |
+    Hay vecinos que llegaron mucho antes que nosotros. 🐦🌿
+
+    En Finca el Guamito, las aves son parte del paisaje y del sonido:
+    basta quedarse quieto un rato para empezar a verlas.
+  hashtags: [avesdevenezuela, agroecoturismo, anzoategui, naturaleza, venezuela]
+
+- fecha: 2026-09-15
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1467.JPG
+  foco: centro
+  titulo: |
+    LA ENTRADA
+    QUE ANUNCIA
+  caption: |
+    Hay llegadas que ya te van cambiando el ánimo. 🌴🌿
+
+    En Finca el Guamito, la avenida de palmas es lo primero que se ve
+    y desde ahí uno ya sabe a qué vino.
+  hashtags: [agroecoturismo, anzoategui, turismorural, venezuela, finca]
+
+- fecha: 2026-09-17
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1927.JPG
+  foco: centro
+  titulo: |
+    CUANDO CAE
+    LA TARDE
+  caption: |
+    Hay horas del día que le sientan mejor al campo. 🌇🌿
+
+    En Finca el Guamito, la casa se pone dorada al atardecer y el
+    banco bajo el árbol se vuelve el mejor puesto de la finca.
+  hashtags: [atardecer, agroecoturismo, anzoategui, venezuela, descanso]
+
+- fecha: 2026-09-19
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1611.JPG
+  foco: centro
+  titulo: |
+    TAMBIÉN
+    SE JUEGA
+  caption: |
+    Hay descansos que se disfrutan más en movimiento. 🏐🌿
+
+    En Finca el Guamito, la cancha de arena es donde se arma la
+    competencia sana entre amigos y familia.
+  hashtags: [agroecoturismo, anzoategui, turismorural, venezuela, familia]
+
+- fecha: 2026-09-21
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1837.JPG
+  foco: centro
+  titulo: |
+    FE EN
+    LO ALTO
+  caption: |
+    Hay caminos que también se recorren por dentro. ⛪🌿
+
+    En Finca el Guamito, subir hasta la cruz es una caminata corta
+    con una vista que invita a quedarse callado un rato.
+  hashtags: [rutareligiosa, agroecoturismo, anzoategui, venezuela, naturaleza]
+
+- fecha: 2026-09-23
+  foto: FUTURAS SEMANAS/IMAGENES/IMG_1619.JPG
+  foco: centro
+  titulo: |
+    TARDES
+    DE PISCINA
+  caption: |
+    Hay tardes que se resuelven solas con agua y sombra. 💦🌴
+
+    En Finca el Guamito, las sombrillas junto a la piscina son el
+    plan completo: refrescarse, conversar y dejar pasar la hora.
+  hashtags: [piscinanatural, agroecoturismo, anzoategui, venezuela, verano]
