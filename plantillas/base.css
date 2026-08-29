@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Titular';
+  src: url(data:font/ttf;base64,{{FUENTE}}) format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
 /* Tokens de marca de @fincaelguamito.
    Fijados el 2026-08-14 comparando renders contra el feed real leido por la
    Graph API. No son parametros por post: si cada pieza los mueve, el feed
@@ -82,7 +89,8 @@ html, body {
   left: var(--margen);
   right: var(--margen);
   bottom: var(--titular-abajo);
-  font-family: 'Arial Black', 'Franklin Gothic Heavy', sans-serif;
+  font-family: 'Titular', 'Arial Black', sans-serif;
+  font-weight: 900;
   font-size: var(--titular-tam);
   line-height: .94;
   letter-spacing: -.5px;

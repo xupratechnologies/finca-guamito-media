@@ -105,6 +105,15 @@ def construir_html(fila):
     with open(os.path.join(PLANTILLAS, "full.html"), encoding="utf-8") as fh:
         plantilla = fh.read()
 
+    # La fuente viaja empotrada en el HTML, no se pide al sistema.
+    #
+    # El 2026-08-29 el primer post salio con letra fina: el CSS pedia 'Arial
+    # Black', que existe en Windows pero NO en los runners de Ubuntu, asi que
+    # Chrome cayo a la sans por defecto en peso normal. Con la fuente dentro
+    # del HTML el render es identico en las dos maquinas.
+    with open(os.path.join(PLANTILLAS, "fuentes", "ArchivoBlack.ttf"), "rb") as fh:
+        fuente_b64 = base64.b64encode(fh.read()).decode()
+
     foco = FOCOS.get(str(fila.get("foco", "centro")).lower())
     if foco is None:
         morir(f"foco desconocido: {fila.get('foco')!r}. "
@@ -129,7 +138,8 @@ def construir_html(fila):
             .replace("{{FOTO}}", foto_b64(ruta_foto))
             .replace("{{LOGO}}", logo_b64())
             .replace("{{FOCO}}", foco)
-            .replace("{{TITULO}}", titulo))
+            .replace("{{TITULO}}", titulo)
+            .replace("{{FUENTE}}", fuente_b64))
 
 
 def rasterizar(html, salida):

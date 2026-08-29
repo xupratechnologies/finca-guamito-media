@@ -5,12 +5,16 @@ name: Publicar en Instagram
 # si estuviera repartida entre el cron y el YAML podrian discrepar y publicar
 # un dia que no toca.
 #
-# 21:00 UTC = 17:00 en Venezuela (UTC-4), la hora a la que ya publica la
-# cuenta. GitHub no garantiza la hora exacta: en horas pico el cron puede
-# arrancar entre 5 y 15 minutos tarde. Para un post diario da igual.
+# El cron arranca a las 20:30 UTC pero NO publica hasta las 21:00 UTC clavadas,
+# que son las 17:00 en Venezuela (UTC-4).
+#
+# El arranque temprano es a proposito: GitHub no garantiza la hora del cron y en
+# horas pico puede retrasarse entre 5 y 15 minutos. Arrancando media hora antes
+# y esperando dentro del job, el retraso se absorbe y el post sale a las 17:00
+# en vez de "a las 17:00 mas lo que GitHub tarde".
 on:
   schedule:
-    - cron: "0 21 * * *"
+    - cron: "30 20 * * *"
   workflow_dispatch:
     inputs:
       fecha:
@@ -110,6 +114,22 @@ jobs:
             sleep 15
           done
           echo "Pages no sirvio $URL tras 10 minutos"; exit 1
+
+      # Se espera con el render ya hecho: si algo falla, falla antes de la hora
+      # y queda margen. Solo en las corridas por cron; un disparo manual publica
+      # al momento.
+      - name: Esperar a las 17:00 de Venezuela
+        if: steps.toca.outputs.toca == 'si' && github.event_name == 'schedule'
+        run: |
+          objetivo=$(date -u -d "today 21:00" +%s)
+          ahora=$(date -u +%s)
+          faltan=$(( objetivo - ahora ))
+          if [ "$faltan" -gt 0 ] && [ "$faltan" -le 3600 ]; then
+            echo "esperando $faltan s hasta las 21:00 UTC (17:00 Venezuela)"
+            sleep "$faltan"
+          else
+            echo "fuera de ventana (faltan ${faltan}s); se publica ya"
+          fi
 
       - name: Publicar en Instagram
         if: steps.toca.outputs.toca == 'si'
