@@ -33,7 +33,14 @@
     // deliberado: por debajo el titular deja de tener el peso que tiene en
     // el feed, y es preferible que un titular demasiado largo se note en el
     // render a que salga diminuto sin que nadie lo mire.
-    (function () {
+    // Se mide DESPUES de que la fuente este aplicada.
+    //
+    // El 2026-09-02 "AMARILLO / DE VENEZUELA" salio cortado por la derecha: el
+    // ajuste corria antes de que la @font-face empotrada estuviera lista, medía
+    // con la tipografia de reserva (mas estrecha), concluia que cabia, y Chrome
+    // pintaba despues con Archivo Black, que es mas ancha. document.fonts.ready
+    // garantiza que lo que se mide es lo que se ve.
+    function ajustar() {
       var t = document.querySelector('.titulo');
       if (!t) return;
       var px = parseFloat(getComputedStyle(t).fontSize);
@@ -42,7 +49,12 @@
         t.style.fontSize = px + 'px';
       }
       document.title = 'tam=' + px;
-    })();
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(ajustar);
+    } else {
+      ajustar();
+    }
   </script>
 </body>
 </html>

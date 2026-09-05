@@ -159,6 +159,9 @@ def rasterizar(html, salida):
 
     subprocess.run([
         CHROME, "--headless", "--disable-gpu", "--hide-scrollbars",
+        # Sin esto la captura puede salir antes de que document.fonts.ready
+        # resuelva y el titular quede sin ajustar.
+        "--virtual-time-budget=5000",
         "--force-device-scale-factor=1", f"--window-size={W},{H}",
         f"--screenshot={tmp_png}",
         f"file:///{tmp_html.replace(os.sep, '/')}",
