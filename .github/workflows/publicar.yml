@@ -168,3 +168,26 @@ jobs:
             salidas/${{ steps.dia.outputs.fecha }}/
           if-no-files-found: ignore
           retention-days: 30
+
+      # La cola se agoto el 2026-09-26 y la cuenta paso semanas muda con
+      # todas las corridas en verde: "hoy no toca" y "no queda nada" se veian
+      # igual. Este paso pone el job en ROJO cuando quedan pocas fechas, y
+      # GitHub manda un correo por cada corrida fallida. Va al final y con
+      # always() para que nunca impida publicar el post del dia.
+      - name: Vigilar que la cola no se agote
+        if: always()
+        run: |
+          python - "${{ steps.dia.outputs.fecha }}" <<'PY'
+          import sys
+          from finca_comun import leer_cola
+          hoy = sys.argv[1]
+          futuras = sorted(str(f["fecha"]) for f in (leer_cola() or [])
+                           if str(f.get("fecha")) > hoy)
+          MINIMO = 4  # ~8 dias a un post cada 2 dias
+          if len(futuras) < MINIMO:
+              ultima = futuras[-1] if futuras else "ninguna"
+              print(f"::error::Quedan {len(futuras)} posts en la cola "
+                    f"(ultima fecha: {ultima}). Hay que cargar la siguiente tanda.")
+              sys.exit(1)
+          print(f"cola ok: {len(futuras)} posts pendientes, hasta {futuras[-1]}")
+          PY
