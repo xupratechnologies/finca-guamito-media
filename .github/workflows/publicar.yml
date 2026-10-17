@@ -90,14 +90,16 @@ jobs:
             *) echo "finca_toca.py fallo con codigo $codigo"; exit 1 ;;
           esac
 
+      # Los dias de Reel no hay nada que renderizar: el video se edito antes
+      # (scripts/reel.py en el proyecto privado) y ya esta en reels/.
       - name: Renderizar
-        if: steps.toca.outputs.toca == 'si'
+        if: steps.toca.outputs.toca == 'si' && steps.toca.outputs.tipo == 'foto'
         run: python render_post.py --fecha "${{ steps.dia.outputs.fecha }}"
 
       # El JPEG se sirve desde este mismo repo por GitHub Pages: Instagram
       # descarga por URL, no se le suben bytes.
       - name: Publicar el JPEG en Pages
-        if: steps.toca.outputs.toca == 'si'
+        if: steps.toca.outputs.toca == 'si' && steps.toca.outputs.tipo == 'foto'
         run: |
           F="${{ steps.dia.outputs.fecha }}"
           mkdir -p img
@@ -111,10 +113,16 @@ jobs:
       # Pages tarda en servir lo recien empujado. publicar_finca.py ya
       # comprueba la URL con HEAD antes de llamar a Instagram, pero si aun no
       # esta viva aborta: este bucle espera a que responda 200.
-      - name: Esperar a que Pages sirva la imagen
+      - name: Esperar a que Pages sirva la imagen o el Reel
         if: steps.toca.outputs.toca == 'si'
         run: |
-          URL="${{ vars.FINCA_PAGES_BASE_URL }}/img/${{ steps.dia.outputs.fecha }}.jpg"
+          F="${{ steps.dia.outputs.fecha }}"
+          if [ "${{ steps.toca.outputs.tipo }}" = "reel" ]; then
+            [ -f "reels/$F.mp4" ] || { echo "falta reels/$F.mp4 en el repo"; exit 1; }
+            URL="${{ vars.FINCA_PAGES_BASE_URL }}/reels/$F.mp4"
+          else
+            URL="${{ vars.FINCA_PAGES_BASE_URL }}/img/$F.jpg"
+          fi
           for i in $(seq 1 40); do
             code=$(curl -s -o /dev/null -w "%{http_code}" "$URL" || true)
             echo "intento $i: $code"
@@ -190,4 +198,13 @@ jobs:
                     f"(ultima fecha: {ultima}). Hay que cargar la siguiente tanda.")
               sys.exit(1)
           print(f"cola ok: {len(futuras)} posts pendientes, hasta {futuras[-1]}")
+          # Los Reels van aparte: las fotos llegan hasta enero, asi que sin
+          # esto la rotacion foto/video se cortaria sin que nada se pusiera rojo.
+          todos = [f for f in (leer_cola() or []) if str(f.get("tipo")) == "reel"]
+          reels = [f for f in todos if str(f.get("fecha")) > hoy]
+          if todos and len(reels) < 2:
+              print(f"::error::Quedan {len(reels)} Reels en la cola. "
+                    f"Hay que editar la siguiente tanda.")
+              sys.exit(1)
+          print(f"reels ok: {len(reels)} pendientes")
           PY

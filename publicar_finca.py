@@ -24,8 +24,8 @@ import time
 
 import requests
 
-from finca_comun import (MARCA, cargar_env, fila_de, hoy, limpiar, log, morir,
-                         registrar, url_publica)
+from finca_comun import (MARCA, cargar_env, es_reel, fila_de, hoy, limpiar, log,
+                         morir, registrar, url_publica)
 
 VERSION = "v21.0"
 GRAPH = f"https://graph.facebook.com/{VERSION}"
@@ -61,7 +61,7 @@ def esperar_contenedor(cid, minutos=5):
         if estado in ("ERROR", "EXPIRED"):
             raise RuntimeError(f"el contenedor quedo en {estado}: "
                                f"{limpiar(d.get('status'))}")
-        time.sleep(8)
+        time.sleep(10)
     raise RuntimeError(f"el contenedor no acabo en {minutos} minutos")
 
 
@@ -123,23 +123,33 @@ def main():
     if not ig:
         morir("falta IG_USER_ID en .env")
 
-    url = url_publica(fecha)
+    reel = es_reel(fila)
+    url = url_publica(fecha, reel=reel)
     caption = texto_del_post(fila)
-    log(f"{fecha} | {url} | pie de {len(caption)} caracteres")
+    log(f"{fecha} | {'reel' if reel else 'foto'} | {url} | pie de {len(caption)} caracteres")
 
     try:
-        # Se comprueba que la imagen se pueda descargar ANTES de pedirsela a
+        # Se comprueba que el archivo se pueda descargar ANTES de pedirselo a
         # Instagram: si la URL falla, el contenedor queda en ERROR y hay que
         # empezar de cero.
         h = requests.head(url, timeout=30, allow_redirects=True)
         tipo = (h.headers.get("Content-Type") or "").lower()
-        if h.status_code != 200 or not tipo.startswith("image/"):
+        esperado = "video/" if reel else "image/"
+        if h.status_code != 200 or not tipo.startswith(esperado):
             raise RuntimeError(f"{url} no es descargable "
                                f"(HTTP {h.status_code}, {tipo or 'sin tipo'})")
 
-        cid = api("post", f"{ig}/media", image_url=url, caption=caption)["id"]
+        if reel:
+            # share_to_feed: que el Reel salga tambien en la cuadricula del
+            # perfil, no solo en la pestana de Reels.
+            cid = api("post", f"{ig}/media", media_type="REELS", video_url=url,
+                      caption=caption, share_to_feed="true")["id"]
+        else:
+            cid = api("post", f"{ig}/media", image_url=url, caption=caption)["id"]
         log(f"contenedor creado: {cid}")
-        esperar_contenedor(cid)
+        # Instagram descarga y procesa el video antes de dejarlo publicar; con
+        # un Reel de 20 s eso tarda de uno a varios minutos.
+        esperar_contenedor(cid, minutos=15 if reel else 5)
 
         if a.dry_run:
             log("--dry-run: NO se publica. El contenedor caduca solo en 24h")

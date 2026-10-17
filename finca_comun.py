@@ -27,7 +27,15 @@ def cargar_env():
 
 
 def log(msg):
-    print(f"[{datetime.datetime.now():%H:%M:%S}] {msg}", flush=True)
+    linea = f"[{datetime.datetime.now():%H:%M:%S}] {msg}"
+    try:
+        print(linea, flush=True)
+    except UnicodeEncodeError:
+        # La consola de Windows (cp1252) no sabe escribir emojis. Que un pie de
+        # foto con 🌿 tumbe finca_toca.py lo haria salir con codigo 1, que
+        # significa "hoy no toca": la cuenta se callaria sin ningun error.
+        enc = sys.stdout.encoding or "ascii"
+        print(linea.encode(enc, "replace").decode(enc), flush=True)
 
 
 def limpiar(texto):
@@ -103,8 +111,17 @@ def hoy():
     return datetime.date.today().isoformat()
 
 
-def url_publica(fecha):
+def es_reel(fila):
+    """Una fila con `tipo: reel` es un video ya editado; el resto son fotos."""
+    return str((fila or {}).get("tipo", "foto")).lower() == "reel"
+
+
+def url_publica(fecha, reel=False):
+    """Las fotos se renderizan el mismo dia en img/; los Reels se editan antes
+    (scripts/reel.py, en el proyecto privado) y se suben ya hechos a reels/."""
     base = os.environ.get("FINCA_PAGES_BASE_URL", "").strip().rstrip("/")
     if not base:
         morir("falta FINCA_PAGES_BASE_URL en .env")
+    if reel:
+        return f"{base}/reels/{fecha}.mp4"
     return f"{base}/img/{fecha}.jpg"

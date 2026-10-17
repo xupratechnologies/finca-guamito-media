@@ -18,9 +18,10 @@ Uso:
   py -3 finca_toca.py --fecha 2026-08-16
 """
 import argparse
+import os
 import sys
 
-from finca_comun import COLA, cargar_env, fila_de, hoy, leer_cola, log, registrar
+from finca_comun import COLA, cargar_env, es_reel, fila_de, hoy, leer_cola, log, registrar
 
 
 def main():
@@ -48,7 +49,15 @@ def main():
         log(f"no hay fila para {fecha}; hoy no toca")
         sys.exit(1)
 
-    log(f"toca: {fecha} | {str(fila.get('titulo','')).splitlines()[0]}")
+    tipo = "reel" if es_reel(fila) else "foto"
+    resumen = (str(fila.get("titulo") or fila.get("caption") or "").strip().splitlines() or [""])[0]
+    log(f"toca: {fecha} | {tipo} | {resumen}")
+    # En GitHub Actions el workflow decide con esto si renderiza una foto o
+    # usa el Reel ya subido.
+    salida = os.environ.get("GITHUB_OUTPUT")
+    if salida:
+        with open(salida, "a", encoding="utf-8") as fh:
+            fh.write(f"tipo={tipo}\n")
     sys.exit(0)
 
 

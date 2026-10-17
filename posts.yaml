@@ -836,3 +836,72 @@
     En Finca el Guamito, entre las hojas aparecen flores rojas
     que sorprenden a cada paso.
   hashtags: [flores, caminata, agroecoturismo, anzoategui, venezuela]
+
+# --- Reels: 2 por semana, en los dias libres entre fotos ---
+# El video se edita antes con scripts/reel.py (proyecto privado, guiones en
+# VIDEOS/REELS/guiones/) y se sube ya terminado a reels/AAAA-MM-DD.mp4.
+# Una fila de Reel no lleva foto ni titulo: el titulo va dentro del video.
+
+- fecha: 2026-10-19
+  tipo: reel
+  caption: |
+    Hay días que se recuerdan por todo lo que cabe en ellos. 🌿✨
+
+    En Finca el Guamito, un solo día alcanza para la piscina, la
+    cascada, un paseo a caballo, la tirolina y un atardecer de esos
+    que no se olvidan.
+  hashtags: [fincaelguamito, agroecoturismo, anzoategui, venezuela, diadecampo]
+
+- fecha: 2026-10-23
+  tipo: reel
+  caption: |
+    Hay lugares donde el agua marca el ritmo. 💦🌴
+
+    En Finca el Guamito, entre la piscina, las fuentes y la cascada
+    natural, siempre hay un rincón fresco para quedarse.
+  hashtags: [piscina, cascada, agroecoturismo, anzoategui, venezuela]
+
+- fecha: 2026-10-27
+  tipo: reel
+  caption: |
+    Hay caminos que se disfrutan mejor desde la silla. 🐴🌿
+
+    En Finca el Guamito, los paseos a caballo entran al bosque
+    despacio, siempre acompañados por nuestro equipo.
+  hashtags: [paseoacaballo, caballos, agroecoturismo, anzoategui, venezuela]
+
+- fecha: 2026-10-31
+  tipo: reel
+  caption: |
+    Hay días que piden un poco de adrenalina. 🤠✨
+
+    En Finca el Guamito, la tirolina y el tiro al blanco ponen la
+    emoción, y el campo pone el paisaje.
+  hashtags: [tirolina, aventura, agroecoturismo, anzoategui, venezuela]
+
+- fecha: 2026-11-04
+  tipo: reel
+  caption: |
+    Hay costumbres que vale la pena vivir de cerca. 🐄🥛
+
+    En Finca el Guamito, el ganado en el potrero, el ordeño y el
+    sabor de lo hecho en casa son parte de la experiencia.
+  hashtags: [vidadecampo, ordeño, agroecoturismo, anzoategui, venezuela]
+
+- fecha: 2026-11-08
+  tipo: reel
+  caption: |
+    Hay tardes que se ponen doradas solas. 🌅✨
+
+    En Finca el Guamito, cuando baja el sol el campo entero cambia
+    de color y todo invita a quedarse un rato más.
+  hashtags: [atardecer, horadorada, agroecoturismo, anzoategui, venezuela]
+
+- fecha: 2026-11-12
+  tipo: reel
+  caption: |
+    Hay lugares que se entienden caminándolos. 🌿🏡
+
+    En Finca el Guamito, entre churuatas, jardines, piscina y
+    cabañas con vista a la montaña, cada rincón tiene algo que mostrar.
+  hashtags: [fincaelguamito, turismorural, agroecoturismo, anzoategui, venezuela]
