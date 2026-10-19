@@ -9,15 +9,18 @@ name: Publicar en Instagram
 #
 # El cron de GitHub solo entiende UTC y no sabe de horario de verano, asi que
 # fijar una hora UTC seria correcto medio ano y estaria una hora corrido el
-# otro. Por eso el cron solo ARRANCA temprano (20:15 UTC, que cae antes de las
+# otro. Por eso el cron solo ARRANCA temprano (18:37 UTC, que cae antes de las
 # 17:00 de Miami tanto en EDT como en EST) y la hora real se calcula dentro del
 # job con TZ=America/New_York, que si sigue el cambio de horario.
 #
 # Arrancar antes tambien absorbe el retraso del propio cron: GitHub no garantiza
-# la hora y en horas pico puede tardar entre 5 y 15 minutos.
+# la hora. Con 20:15 UTC, el 2026-10-18 arranco a las 22:23 y el post salio a
+# las 18:25 de Miami, cuando a las 17h la cuenta rinde ~40% mas que a las 18h.
+# 18:37 deja ~2,5 h de margen en EDT; el minuto impar esquiva el pico de las
+# horas en punto, que es cuando mas se atrasa el cron.
 on:
   schedule:
-    - cron: "15 20 * * *"
+    - cron: "37 18 * * *"
   workflow_dispatch:
     inputs:
       fecha:

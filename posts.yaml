@@ -4,8 +4,11 @@
 # que calcule "cada 2 dias", porque podria discrepar de esta lista y publicar
 # un dia que no toca o callarse uno que si.
 #
-# Arrancamos cada 2 dias, que es el ritmo real de la cuenta. Se pasa a diario
-# cuando el pipeline lleve dos semanas sin fallos.
+# Calendario (desde 2026-10-19), elegido con el alcance real de la cuenta:
+#   Reels: lunes y viernes (viernes = mas alcance; lunes = mas interaccion).
+#   Fotos: martes, jueves y sabado. Nunca dos posts el mismo dia.
+#   Fechas especiales (Navidad, Ano Nuevo) se quedan en su dia.
+# Los Reels nuevos los agrega solo el editor automatico del repo privado.
 #
 # CAMPOS
 #   fecha      AAAA-MM-DD. El dia que sale.
@@ -312,7 +315,7 @@
     de los árboles y anuncia una noche tranquila.
   hashtags: [atardecer, agroecoturismo, anzoategui, venezuela, naturaleza]
 
-- fecha: 2026-10-26
+- fecha: 2026-10-27
   foto: FUTURAS SEMANAS/IMAGENES/IMG_2079.JPG
   foco: arriba
   titulo: |
@@ -325,7 +328,7 @@
     entero se llena de amarillo.
   hashtags: [araguaney, floravenezolana, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-10-28
+- fecha: 2026-10-29
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1791.JPG
   foco: izquierda
   titulo: |
@@ -338,7 +341,7 @@
     mañana bastan para empezar bien el día.
   hashtags: [descanso, agroecoturismo, anzoategui, venezuela, desconexion]
 
-- fecha: 2026-10-30
+- fecha: 2026-10-31
   foto: FUTURAS SEMANAS/IMAGENES/7.jpeg
   foco: centro
   titulo: |
@@ -351,7 +354,7 @@
     experiencia: conocer de cerca el trabajo del campo.
   hashtags: [vidadecampo, ganaderia, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-01
+- fecha: 2026-11-03
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1631.JPG
   foco: centro
   titulo: |
@@ -364,7 +367,7 @@
     sombrillas de colores arman el día perfecto.
   hashtags: [piscina, diadesol, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-03
+- fecha: 2026-11-05
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1685.JPG
   foco: centro
   titulo: |
@@ -377,7 +380,7 @@
     y le ponen sonido a cada mañana.
   hashtags: [avesdevenezuela, faunavenezolana, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-05
+- fecha: 2026-11-07
   foto: FUTURAS SEMANAS/IMAGENES/8.jpeg
   foco: derecha
   titulo: |
@@ -390,7 +393,7 @@
     potrero, con las montañas de fondo.
   hashtags: [bambu, paisaje, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-07
+- fecha: 2026-11-10
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1474.JPG
   foco: centro
   titulo: |
@@ -403,7 +406,7 @@
     marcan un paseo fresco y lleno de verde.
   hashtags: [palmeras, caminata, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-09
+- fecha: 2026-11-12
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1734.JPG
   foco: centro
   titulo: |
@@ -416,7 +419,7 @@
     recuerdan por qué vale la pena salir de la ciudad.
   hashtags: [naturaleza, desconexion, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-11
+- fecha: 2026-11-14
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1522.JPG
   foco: centro
   titulo: |
@@ -434,7 +437,7 @@
 # orden original para que entre una foto y su repeticion pasen ~2,5 meses.
 # Cuando lleguen fotos nuevas, tienen prioridad: sustituyen fechas de aqui.
 
-- fecha: 2026-11-13
+- fecha: 2026-11-17
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1558.JPG
   foco: centro
   titulo: |
@@ -447,7 +450,7 @@
     siempre está ahí, mirándote de vuelta.
   hashtags: [piscina, montaña, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-15
+- fecha: 2026-11-19
   foto: FUTURAS SEMANAS/IMAGENES/IMG_2036.JPG
   foco: centro
   titulo: |
@@ -460,7 +463,7 @@
     buen momento para conocerlos de cerca y aprender cómo se cuidan.
   hashtags: [vidadecampo, turismorural, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-17
+- fecha: 2026-11-21
   foto: FUTURAS SEMANAS/IMAGENES/IMG_2082.JPG
   foco: centro
   titulo: |
@@ -473,7 +476,7 @@
     para quien pasa por debajo.
   hashtags: [araguaney, arbolnacional, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-19
+- fecha: 2026-11-24
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1530.JPG
   foco: centro
   titulo: |
@@ -486,7 +489,7 @@
     de sombra que a pie quizás no descubrirías.
   hashtags: [paseoacaballo, caballos, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-21
+- fecha: 2026-11-26
   foto: FUTURAS SEMANAS/IMAGENES/IMG_2060.JPG
   foco: centro
   titulo: |
@@ -499,7 +502,7 @@
     mirar el verde y dejar que la tarde pase sola.
   hashtags: [posada, descanso, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-23
+- fecha: 2026-11-28
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1841.JPG
   foco: centro
   titulo: |
@@ -512,7 +515,7 @@
     y el día empieza sin ruido.
   hashtags: [amanecer, buenosdias, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-25
+- fecha: 2026-12-01
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1667.JPG
   foco: centro
   titulo: |
@@ -525,7 +528,7 @@
     pausa a cualquier preocupación.
   hashtags: [agua, calma, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-27
+- fecha: 2026-12-03
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1804.JPG
   foco: centro
   titulo: |
@@ -538,7 +541,7 @@
     flores, a su propio ritmo.
   hashtags: [ganaderia, vidadecampo, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-29
+- fecha: 2026-12-05
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1588.JPG
   foco: centro
   titulo: |
@@ -551,7 +554,7 @@
     la comida, las historias y la sombra se comparten aquí.
   hashtags: [churuata, familia, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-01
+- fecha: 2026-12-08
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1684.JPG
   foco: centro
   titulo: |
@@ -564,7 +567,7 @@
     de todos los colores entre las ramas.
   hashtags: [aves, faunavenezolana, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-03
+- fecha: 2026-12-10
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1467.JPG
   foco: centro
   titulo: |
@@ -577,7 +580,7 @@
     la llegada y marcan el comienzo del descanso.
   hashtags: [palmeras, bienvenidos, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-05
+- fecha: 2026-12-12
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1927.JPG
   foco: centro
   titulo: |
@@ -590,7 +593,7 @@
     de dorado y todo se ve más tranquilo.
   hashtags: [horadorada, atardecer, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-07
+- fecha: 2026-12-15
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1611.JPG
   foco: centro
   titulo: |
@@ -603,7 +606,7 @@
     moverse, reír y jugar con los tuyos.
   hashtags: [voleibol, planenfamilia, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-09
+- fecha: 2026-12-17
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1837.JPG
   foco: centro
   titulo: |
@@ -616,7 +619,7 @@
     para agradecer, en silencio y con el valle a tus pies.
   hashtags: [rutareligiosa, fe, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-11
+- fecha: 2026-12-19
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1619.JPG
   foco: centro
   titulo: |
@@ -629,7 +632,7 @@
     lugar para pasar el calor del mediodía.
   hashtags: [piscina, diadesol, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-13
+- fecha: 2026-12-22
   foto: FUTURAS SEMANAS/IMAGENES/3.jpeg
   foco: derecha
   titulo: |
@@ -642,7 +645,7 @@
     ciudad y empezar un día distinto.
   hashtags: [fincaelguamito, turismorural, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-15
+- fecha: 2026-12-24
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1553.JPG
   foco: centro
   titulo: |
@@ -655,7 +658,7 @@
     falta experiencia, solo ganas de probar.
   hashtags: [tiroconarco, actividades, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-17
+- fecha: 2026-12-26
   foto: FUTURAS SEMANAS/IMAGENES/10.jpeg
   foco: centro
   titulo: |
@@ -668,7 +671,7 @@
     ganado pasta sin apuro bajo el cielo abierto.
   hashtags: [paisaje, ganaderia, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-19
+- fecha: 2026-12-29
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1694.JPG
   foco: centro
   titulo: |
@@ -681,7 +684,7 @@
     y regalan color a quien sabe mirar hacia arriba.
   hashtags: [orquideas, flores, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-21
+- fecha: 2027-01-02
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1966.JPG
   foco: centro
   titulo: |
@@ -694,7 +697,7 @@
     grandes terminan haciendo fila también.
   hashtags: [vacaciones, ninos, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-23
+- fecha: 2027-01-05
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1825.JPG
   foco: centro
   titulo: |
@@ -720,7 +723,7 @@
     de paz, buena compañía y cielos como este.
   hashtags: [feliznavidad, navidad, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-27
+- fecha: 2027-01-07
   foto: FUTURAS SEMANAS/IMAGENES/IMG_2079.JPG
   foco: arriba
   titulo: |
@@ -733,7 +736,7 @@
     y es imposible no detenerse a mirarlo.
   hashtags: [araguaney, floravenezolana, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-12-29
+- fecha: 2027-01-09
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1791.JPG
   foco: izquierda
   titulo: |
@@ -759,7 +762,7 @@
     Que el próximo traiga más días de sol y naturaleza.
   hashtags: [felizañonuevo, añonuevo, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2027-01-02
+- fecha: 2027-01-12
   foto: FUTURAS SEMANAS/IMAGENES/7.jpeg
   foco: centro
   titulo: |
@@ -772,7 +775,7 @@
     familia y de cada visita.
   hashtags: [vidadecampo, animales, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2027-01-04
+- fecha: 2027-01-14
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1685.JPG
   foco: centro
   titulo: |
@@ -785,7 +788,7 @@
     despacio y en silencio.
   hashtags: [avesdevenezuela, naturaleza, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2027-01-06
+- fecha: 2027-01-16
   foto: FUTURAS SEMANAS/IMAGENES/8.jpeg
   foco: derecha
   titulo: |
@@ -798,7 +801,7 @@
     potrero y da sombra a quien se acerca.
   hashtags: [bambu, naturaleza, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2027-01-08
+- fecha: 2027-01-19
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1474.JPG
   foco: centro
   titulo: |
@@ -811,7 +814,7 @@
     enormes que llevan ahí desde siempre.
   hashtags: [palmasreales, paisaje, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2027-01-10
+- fecha: 2027-01-21
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1734.JPG
   foco: centro
   titulo: |
@@ -824,7 +827,7 @@
     regalo para empezar el año.
   hashtags: [airepuro, desconexion, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2027-01-12
+- fecha: 2027-01-23
   foto: FUTURAS SEMANAS/IMAGENES/IMG_1522.JPG
   foco: centro
   titulo: |
@@ -861,7 +864,7 @@
     natural, siempre hay un rincón fresco para quedarse.
   hashtags: [piscina, cascada, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-10-27
+- fecha: 2026-10-26
   tipo: reel
   caption: |
     Hay caminos que se disfrutan mejor desde la silla. 🐴🌿
@@ -870,7 +873,7 @@
     despacio, siempre acompañados por nuestro equipo.
   hashtags: [paseoacaballo, caballos, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-10-31
+- fecha: 2026-10-30
   tipo: reel
   caption: |
     Hay días que piden un poco de adrenalina. 🤠✨
@@ -879,7 +882,7 @@
     emoción, y el campo pone el paisaje.
   hashtags: [tirolina, aventura, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-04
+- fecha: 2026-11-02
   tipo: reel
   caption: |
     Hay costumbres que vale la pena vivir de cerca. 🐄🥛
@@ -888,7 +891,7 @@
     sabor de lo hecho en casa son parte de la experiencia.
   hashtags: [vidadecampo, ordeño, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-08
+- fecha: 2026-11-06
   tipo: reel
   caption: |
     Hay tardes que se ponen doradas solas. 🌅✨
@@ -897,7 +900,7 @@
     de color y todo invita a quedarse un rato más.
   hashtags: [atardecer, horadorada, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-12
+- fecha: 2026-11-09
   tipo: reel
   caption: |
     Hay lugares que se entienden caminándolos. 🌿🏡
@@ -906,7 +909,7 @@
     cabañas con vista a la montaña, cada rincón tiene algo que mostrar.
   hashtags: [fincaelguamito, turismorural, agroecoturismo, anzoategui, venezuela]
 
-- fecha: 2026-11-16
+- fecha: 2026-11-13
   tipo: reel
   caption: |
     Hay escapadas que te cambian la semana. 🌄🌿
