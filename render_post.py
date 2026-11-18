@@ -151,6 +151,10 @@ def accesorio_logo(im, cx, cy, r, efecto):
 # Cabeza del pato en el logo blanco YA recortado al trazo (554x487).
 CABEZA_LOGO_BLANCO = (242, 127, 52)
 
+# Efectos que ademas le ponen gorro al pato. `amor` no: el usuario lo quito el
+# 2026-11-18 ("ya no es Navidad en esa epoca"); ese dia solo van los corazones.
+CON_GORRO = ("navidad", "anonuevo", "carnaval")
+
 
 def logo_b64(umbral=60, efecto=None):
     """Recorta el logo a su TRAZO, no a su glow.
@@ -172,7 +176,7 @@ def logo_b64(umbral=60, efecto=None):
         im = im.crop(bbox)
         # Las coordenadas de la cabeza valen para ESTE recorte; si el logo
         # cambia y el recorte sale de otro tamano, mejor sin gorro que torcido.
-        if efecto and im.size == (554, 487):
+        if str(efecto or "").lower() in CON_GORRO and im.size == (554, 487):
             im = accesorio_logo(im, *CABEZA_LOGO_BLANCO, efecto)
     buf = io.BytesIO()
     im.save(buf, "PNG")
@@ -349,7 +353,7 @@ def construir_html(fila):
             .replace("{{LOGO}}", logo_b64(efecto=fila.get("efecto")))
             .replace("{{FOCO}}", foco)
             .replace("{{TITULO}}", titulo)
-            .replace("{{CLASE}}", "festivo" if fila.get("efecto") else "")
+            .replace("{{CLASE}}", "festivo" if str(fila.get("efecto") or "").lower() in CON_GORRO else "")
             .replace("{{EFECTO}}", efecto_svg(fila.get("efecto")))
             .replace("{{FUENTE}}", fuente_b64))
 
