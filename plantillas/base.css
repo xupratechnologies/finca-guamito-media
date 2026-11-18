@@ -73,6 +73,13 @@ html, body {
     rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 72%);
 }
 
+/* Adorno de fechas especiales (campo `efecto`): encima de la foto y de los
+   velos, debajo del logo y del titular. */
+.efecto {
+  position: absolute;
+  inset: 0;
+}
+
 .logo {
   position: absolute;
   top: var(--logo-arriba);
