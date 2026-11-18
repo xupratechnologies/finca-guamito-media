@@ -80,6 +80,11 @@ html, body {
   inset: 0;
 }
 
+/* En los dias con `efecto` el logo baja: arriba cuelga la guirnalda y el
+   gorro del pato quedaba pegado a las luces (pedido el 2026-11-18). */
+.festivo .logo { top: 104px; }
+.festivo .velo-logo { height: 34%; }
+
 .logo {
   position: absolute;
   top: var(--logo-arriba);

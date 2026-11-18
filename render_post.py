@@ -189,7 +189,7 @@ def _destello(x, y, r, color, op):
 
 def _libre(x, y):
     """Fuera de la esquina del logo: ahi no se dibuja ningun adorno."""
-    return not (x < 300 and y < 260)
+    return not (x < 300 and y < 320)
 
 
 def efecto_svg(nombre):
@@ -349,6 +349,7 @@ def construir_html(fila):
             .replace("{{LOGO}}", logo_b64(efecto=fila.get("efecto")))
             .replace("{{FOCO}}", foco)
             .replace("{{TITULO}}", titulo)
+            .replace("{{CLASE}}", "festivo" if fila.get("efecto") else "")
             .replace("{{EFECTO}}", efecto_svg(fila.get("efecto")))
             .replace("{{FUENTE}}", fuente_b64))
 
